@@ -365,7 +365,7 @@ std::vector<std::filesystem::path> build_file_list() {
 
     std::sort(paths.begin(), paths.end(),
         [](std::filesystem::path const &a, std::filesystem::path const &b) {
-            return strcmp(a.c_str(), b.c_str());
+            return strcmp(a.string().c_str(), b.string().c_str()) < 0;
         }
     );
 
