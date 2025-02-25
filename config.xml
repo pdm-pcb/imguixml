@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <config>
-    <plugin_paths>
-        <path key="picked_file">files_to_pick/photograph.jpg</path>
-    </plugin_paths>
+	<plugin_paths>
+		<path key="picked_file">files_to_pick/file_a.txt</path>
+	</plugin_paths>
 </config>
+

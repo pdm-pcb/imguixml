@@ -419,19 +419,25 @@ void write_new_picked_file(std::filesystem::path const &new_picked) {
     rapidxml::xml_document<> doc;
     doc.parse<0>(xmlFile.data());
 
+    std::string const new_path { new_picked.string() };
+
     for(auto *node = doc.first_node(); node != nullptr; node = node->first_node()) {
         if(strcmp(node->name(), "path") == 0) {
             auto *attribute = node->first_attribute();
             if(strcmp(attribute->name(), "key") == 0
                && strcmp(attribute->value(), "picked_file") == 0)
             {
-                node->value(new_picked.string().c_str());
-                break;
+                node = node->first_node();
+                node->value(new_path.c_str());
             }
         }
     }
 
-    std::cout << doc;
+    std::ofstream config_file("config.xml");
+    if(config_file.good()) {
+        config_file << doc;
+    }
+    config_file.close();
 }
 
 // Main code
