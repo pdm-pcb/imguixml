@@ -417,9 +417,7 @@ std::filesystem::path find_picked_file() {
 void write_new_picked_file(std::filesystem::path const &new_picked) {
     rapidxml::file<> xmlFile("config.xml");
     rapidxml::xml_document<> doc;
-    doc.parse<rapidxml::parse_declaration_node>(xmlFile.data());
-
-    std::string const new_path = new_picked.string();
+    doc.parse<0>(xmlFile.data());
 
     for(auto *node = doc.first_node(); node != nullptr; node = node->first_node()) {
         if(strcmp(node->name(), "path") == 0) {
@@ -427,7 +425,7 @@ void write_new_picked_file(std::filesystem::path const &new_picked) {
             if(strcmp(attribute->name(), "key") == 0
                && strcmp(attribute->value(), "picked_file") == 0)
             {
-                node->value(new_path.c_str());
+                node->value(new_picked.string().c_str());
                 break;
             }
         }
